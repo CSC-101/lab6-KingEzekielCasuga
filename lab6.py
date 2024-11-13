@@ -35,14 +35,62 @@ def selection_sort(values:list[int]) -> None:
         values[mindex] = values[idx]
         values[idx] = tmp
 
-
 # Part 1
 
+# replicates the index smallest from function, but with the input as
+# a list of books instead
+
+def index_smallest_char_from(values:list[data.Book], start:int) -> Optional[int]:
+    if start >= len(values) or start < 0:
+        return None
+    mindex = start
+    for idx in range(start + 1, len(values)):
+        n = 0
+        while values[idx].title[n] == values[mindex].title[n]:
+            n = n + 1
+        if values[idx].title[n] < values[mindex].title[n]:
+            mindex = idx
+    return mindex
+
+# uses the selection sorting algorithm on an input list of books
+
+def selection_sort_books(books:list[data.Book]) -> None:
+    for idx in range(len(books) - 1):
+        mindex = index_smallest_char_from(books, idx)
+        tmp = books[mindex]
+        books[mindex] = books[idx]
+        books[idx] = tmp
 
 # Part 2
 
+def swap_case(string:str) -> str:
+    swapped = []
+    for char in string:
+        if (char.isupper()) or (not char.isalpha()):
+            swapped.append(char.lower())
+        if char.islower():
+            swapped.append(char.upper())
+    return ''.join(swapped)
 
 # Part 3
 
+def str_translate(string:str, char:str, char_new:str) -> str:
+    string_new = []
+    for i in range(len(string)):
+        if string[i] != char:
+            string_new.append(string[i])
+        else:
+            string_new.append(char_new)
+    return ''.join(string_new)
 
 # Part 4
+
+def histogram(paragraph:str) -> dict:
+    histogram = {}
+    paragraph.split(' ')
+    for letter in paragraph:
+        if letter in histogram:
+            histogram[letter] += 1
+        else:
+            histogram[letter] = 1
+    return histogram
